@@ -1,0 +1,175 @@
+/* REFS Styling group of tokens, badges, chips, tags, etc.
+  → https://nerdy.dev/meaningful-ways-to-use-radio-and-checkbox-groups
+  → https://github.com/argyleink/gui-challenges/tree/main/picklists
+    Demo: https://gui-challenges.web.app/picklists/dist/
+  → https://html.spec.whatwg.org/#tag-clouds */
+
+.taglist {
+  border: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  /* gap: var(--size-2); */
+}
+
+.taglist .tag-toggle {
+  display: grid;
+  inline-size: min-content;
+  border-radius: 2ch;
+  /* border-radius: var(--radius-2); */
+  overflow: hidden;
+  background: var(--surface-3);
+  box-shadow: var(--shadow-1);
+
+  > * { grid-area: 1/1 }
+
+  > input {
+    appearance: none;
+    background: none;
+    border: none;
+    inline-size: 100%;
+    block-size: 100%;
+
+    &:checked ~ label {
+      background-color: var(--link);
+      color: var(--surface-1);
+
+      --border: var(--_neon);
+    }
+
+    &:not(:checked):is(:focus-within, :hover) ~ label {
+      color: var(--link);
+
+      --border: var(--_neon);
+    }
+  }
+
+  > label {
+    --link: color-mix(
+      in oklch,
+      var(--border) 25%,
+      light-dark(
+        color(display-p3 0 0 0),
+        color(display-p3 1 1 1)
+      ) 50%);
+
+    padding: unset;
+    border-width: thin;
+    border-color: var(--border, initial);
+    border-style: solid;
+    background-color: color-mix(
+      in oklch,
+      var(--border) 15%,
+      transparent 50%);
+
+    transition-duration: var(--duration-1);
+    transition-timing-function: var(--ease-3);
+
+    padding-inline: calc(var(--lh, 1rlh) / 2);
+    padding-block: 0.5ch;
+
+    font-weight: 500;
+    line-height: 1.5;
+    white-space: nowrap;
+    user-select: none;
+
+    border-radius: inherit;
+  }
+}
+
+:where(.tag-toggle) {
+  &:nth-child(1) {--_i:1; --_neon: var(--neon-pink)}
+  &:nth-child(2) {--_i:2; --_neon: var(--neon-blue)}
+  &:nth-child(3) {--_i:3; --_neon: var(--neon-cyan)}
+  &:nth-child(4) {--_i:4; --_neon: var(--neon-lime)}
+  &:nth-child(5) {--_i:5; --_neon: var(--neon-purple)}
+}
+
+/**
+ * MARK: - Layout
+ */
+
+@layer support {
+  :where(:has(> .tag-toggle)) { /* .collapsible > .wrapper */
+    display: flex;
+    flex-wrap: wrap;
+
+    /* https://ishadeed.com/article/the-gap/ */
+    align-items: baseline;
+    gap: calc(1lh / 3);
+  }
+
+  :where(:has(> .taglist)) {
+    display: grid;
+  }
+
+  :where(:has(> form .taglist)) {
+    @media (width <= 480px) {
+      padding-block: 2ch;
+      padding-inline: 1px;
+    }
+    /* @media (width >= 1024px) {
+      padding-inline: var(--size-3);
+      padding-inline: max(var(--size-3), env(safe-area-inset-left));
+    } */
+  }
+}
+
+/**
+ * MARK: - Controls
+ */
+
+[id=filters] {
+  display: flex;
+  flex-flow: column;
+  gap: 1rlh;
+
+  @supports not (gap: 1rlh) {
+    & { gap: 2ch }
+  }
+
+  .control:has(> .btn) {
+    display: none;
+    opacity: 0;
+    transition:
+      opacity .150s,
+      display .150s allow-discrete;
+
+    .btn {
+      --border: color(display-p3 1 0 0);
+      --link: color-mix(
+        in oklch,
+        var(--border) 25%,
+        light-dark(
+          color(display-p3 0 0 0),
+          color(display-p3 1 1 1)
+        ) 50%);
+
+      font-size: .875rem;
+      background: transparent;
+      border: thin var(--border) solid;
+      border-radius: 2ch;
+      color: var(--link);
+
+      &:is(:hover, :focus) {
+        background-color: color-mix(
+          in oklch,
+          var(--border) 15%,
+          transparent 50%);
+      }
+    }
+  }
+
+  &:has(input:not([id^=open]):checked) .control {
+    opacity: 1;
+    display: block;
+  }
+
+  & :has(> h4) {
+    padding-inline: 2ex;
+    padding-block: 1ch;
+    background-color: var(--background, var(--surface-1));
+
+    > h4 { text-wrap: nowrap }
+  }
+}

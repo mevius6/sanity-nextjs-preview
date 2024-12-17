@@ -1,0 +1,42 @@
+/* https://kizu.dev/tree-counting-and-random/#indexing-99-siblings */
+.provide-sibling-indexes {
+  & > * {
+    --si2: 0;
+    --si1: 0;
+    --sibling-index: calc(10 * var(--si2) + var(--si1));
+  }
+  & > *:nth-child(10n+1) { --si1: 1 }
+  & > *:nth-child(10n+2) { --si1: 2 }
+  & > *:nth-child(10n+3) { --si1: 3 }
+  & > *:nth-child(10n+4) { --si1: 4 }
+  & > *:nth-child(10n+5) { --si1: 5 }
+  & > *:nth-child(10n+6) { --si1: 6 }
+  & > *:nth-child(10n+7) { --si1: 7 }
+  & > *:nth-child(10n+8) { --si1: 8 }
+  & > *:nth-child(10n+9) { --si1: 9 }
+  & > *:nth-child(n+10):nth-child(-n+19) { --si2: 1 }
+  & > *:nth-child(n+20):nth-child(-n+29) { --si2: 2 }
+  & > *:nth-child(n+30):nth-child(-n+39) { --si2: 3 }
+  & > *:nth-child(n+40):nth-child(-n+49) { --si2: 4 }
+  & > *:nth-child(n+50):nth-child(-n+59) { --si2: 5 }
+  & > *:nth-child(n+60):nth-child(-n+69) { --si2: 6 }
+  & > *:nth-child(n+70):nth-child(-n+79) { --si2: 7 }
+  & > *:nth-child(n+80):nth-child(-n+89) { --si2: 8 }
+  & > *:nth-child(n+90):nth-child(-n+99) { --si2: 9 }
+}
+
+/* which then authors could import like:
+@import "open-props/sibling-indexes"; */
+
+/* and apply to an element like:
+<ul class="provide-sibling-indexes">
+  <li>…</li>
+  …
+</ul> */
+
+/* then use like:
+ul {
+  li {
+    transition-delay: calc(var(--sibling-index) * 50ms);
+  }
+} */

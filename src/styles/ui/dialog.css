@@ -1,0 +1,122 @@
+/*
+  Resources:
+  MDN dialog → https://goo.gle/4d06qIF
+  MDN transition-behavior → https://goo.gle/4fnfwkp
+  MDN @starting-style → https://goo.gle/3StqWcH
+  MDN overlay → https://goo.gle/3yKNRsT
+  MDN ::backdrop → https://goo.gle/3WLyGcB
+  Material dialog → https://goo.gle/3YIrhMD
+  CSS Podcast ep 80 → https://goo.gle/3SS4ydh
+
+  Demos:
+  basic dialog → https://goo.gle/3LLVnab
+  basic dialog + transitions → https://goo.gle/3yg9lOv
+  dialog using invokers → https://goo.gle/4deXrU0
+  fixed element vs the top-layer → https://goo.gle/3Wpv6TW
+  default, error, waiting, notify, confirm, transitions, light dismiss and custom → https://goo.gle/3A1Nrz5
+  dialog lightbox with view transitions → https://codepen.io/argyleink/pen/ZENRLva
+*/
+
+/**
+ * GUI Patters: Dialog
+ * https://mdn.io/dialog
+ * https://goo.gle/3jyxgxF
+ * https://web.dev/articles/building/a-dialog-component
+ * https://css-tricks.com/creating-a-custom-element-from-scratch/
+ * https://html.spec.whatwg.org/#the-dialog-element
+ * https://html.spec.whatwg.org/#user-prompts
+ */
+
+/* Entry/Exit <dialog> 2024 → https://codepen.io/jh3y/pen/LYoZWmJ */
+
+dialog {
+  /* override UA stylesheet via [class*="overlay-wrap"]
+  margin: auto;
+  position: fixed;
+  inset: 0; */
+  border: 0;
+
+  z-index: var(--big-int);
+  font-family: inherit;
+
+  & > :where(ol, li, span) { font-family: inherit }
+
+  &:not([open]) {
+    pointer-events: none;
+    /* opacity: 0; */
+  }
+}
+
+/* dialog[open] {…} */
+
+/* dialog::-webkit-backdrop, */
+:where(dialog)::backdrop {
+  background: hsl(0 0% 10% / 0.5);
+  /* background: repeating-linear-gradient(
+    45deg,
+    hsl(0 0% 0% / 0.2),
+    hsl(0 0% 0% / 0.2) 1px,
+    hsl(0 0% 0% / 0.3) 1px,
+    hsl(0 0% 0% / 0.3) 20px
+  ); */
+  -webkit-backdrop-filter: blur(4px); /* 25px */
+  backdrop-filter: blur(4px);
+}
+
+/* https://developer.chrome.com/blog/entry-exit-animations#animating_elements_to_and_from_the_top-layer */
+dialog,
+dialog::backdrop {
+  --speed: .3s;
+  --easing: var(--ease-5);
+
+  opacity: var(--_alpha, 1);
+  transition:
+    display var(--speed) var(--easing) allow-discrete,
+    overlay var(--speed) var(--easing) allow-discrete,
+    translate var(--speed) var(--easing),
+    opacity var(--speed) var(--easing) !important;
+}
+
+dialog {
+  translate: var(--_tx, 0) var(--_ty, 0);
+
+  @starting-style {
+    --_alpha: 0;
+    --_ty: 50%;
+  }
+}
+
+dialog::backdrop {
+  @starting-style {
+    --_alpha: 0;
+  }
+}
+
+/* @supports (transition-timing-function: linear(1, 1)) {
+  dialog[open] {
+    animation: slide-up 2s
+      linear(
+        0,
+        1.1144 8.49%,
+        1.2959 10.7%,
+        1.3705 12.94%,
+        1.3643 14.48%,
+        1.3151 16.2%,
+        0.941 24.01%,
+        0.8694 27.84%,
+        0.8824 30.71%,
+        1.0122 38.33%,
+        1.046 42.71%,
+        0.9839 57.54%,
+        1.0056 72.24%,
+        1
+      )
+      forwards;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    translate: 0 100%;
+  }
+} */

@@ -1,0 +1,253 @@
+/**
+ * MARK: - Zoom Spot
+ */
+/* TODO Name this thing: spot, portal, gateway, etc. */
+
+.wrapper:has(> .spot-container) {
+  min-inline-size: 100vw;
+  block-size: 100dvh;
+}
+
+.spot-container {
+  width: 100%;
+  height: 100dvh;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  perspective: 500px;
+  overflow: hidden !important;
+
+  .spot {
+    --spot-radius: 25vmin;
+    --spot-surface: hsl(var(--sw-dark-night));
+    /* hsl(var(--sw-night-watch)); */
+    /* hsl(var(--sw-cascades)); */
+
+    aspect-ratio: 1;
+    block-size: 100%;
+    background-color: var(--spot-surface, var(--background));
+
+    /* @media (prefers-color-scheme: light) {} */
+    :where(:has(.theme > [value=light]:checked)) &::after {
+      background: var(--tex-paper);
+      background-size: cover;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      content: "";
+    }
+
+    /* #region masking */
+    @supports(-webkit-mask-image: url(#mask)) or (mask-image: url(#mask)) {
+      & {
+        /* https://drafts.fxtf.org/css-masking/#the-mask */
+
+        /* mask: radial-gradient(circle at center,
+          #0000 clamp(8rem,50%,12rem), clamp(8rem,50%,12rem),
+          #000 100%
+        ) center/100% 100% no-repeat exclude; */
+
+        /* https://github.com/mbarker84/codrops-masked-hero */
+        --maskSize1: 20%;
+        --maskSize2: 28%;
+        --maskSize3: calc(28% + 0.1rem);
+
+        /* --mask: radial-gradient(
+          circle at var(--x, 50%) var(--y, 50%),
+          #0000 var(--maskSize1, 0%),
+          rgba(0, 0, 0, 0.1) calc(var(--maskSize1, 0%) + 0.1%),
+          #000 0,
+          #000 var(--maskSize2, 0%),
+          rgba(0, 0, 0, 0.1) calc(var(--maskSize2, 0%) + 0.1%),
+          #0000 var(--maskSize2, 0%),
+          rgba(0, 0, 0, 0.1) calc(var(--maskSize3, 0%) - 0.1%),
+          #0000 var(--maskSize3, 0%),
+          rgba(0, 0, 0, 0.1) calc(var(--maskSize3, 0%) + 0.1%),
+          #000 0
+        ); */
+
+        --mask: radial-gradient(
+          circle at var(--x, 50%) var(--y, 50%),
+          #0000 var(--maskSize1, 0%),
+          rgba(0, 0, 0, 0.1) calc(var(--maskSize1, 0%) + 0.1%),
+          #000 0
+        );
+
+        mask-image: var(--mask);
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+    }
+    /* #endregion */
+  }
+
+  .spot hgroup {
+    margin: auto;
+    /* inline-size: calc(100cqi - 2.75rem); */
+    block-size: calc(100lvh - var(--star-size) * 4);
+    /* align-items: stretch; */
+    grid-template-rows: auto min-content;
+
+    h1 {
+      place-self: start center;
+      width: 100%;
+
+      text-align: center;
+      text-transform: lowercase;
+      color: light-dark(
+        hsl(var(--sw-carnelian)),
+        var(--sw-chinchilla)
+      );
+
+      > .block { display: contents !important }
+    }
+
+    h1 + p:is(.lede, .lead) {
+      place-self: end center;
+      max-inline-size: 35ch;
+      padding-block-end: 1rlh;
+
+      font-variation-settings: var(--forma-300-micro);
+      color: light-dark(
+        hsl(var(--sw-carnelian)),
+        var(--sw-chinchilla)
+      );
+    }
+
+    @media (width >= 48rem) {
+      gap: 1rlh;
+      aspect-ratio: 1;
+
+      h1 {--px-size: 72}
+    }
+
+    @media (width >= 64rem) {
+      h1 {--px-size: 96}
+    }
+  }
+
+  ul > li {
+    /* padding: 2ch; */
+    font-family: var(--font-serif);
+    /* font-size: 12.5vmin; */
+    font-variation-settings: "opsz" 72, "wght" 680;
+    font-feature-settings: "kern" on, "smcp" on, "c2sc" on;
+    text-transform: lowercase;
+    color: hsl(var(--sw-honeydew));
+
+    &:nth-child(odd) {
+      justify-self: center;
+      font-size: 12.5vmin;
+
+      @media (width > 428px) {
+        /* padding-block-end: 1.5rem; */
+        padding-block-start: 6.25vmin;
+      }
+    }
+    &:nth-child(2) {
+      align-self: start;
+      translate: 0 -100%;
+    }
+    &:nth-child(4) {
+      align-self: end;
+      translate: 0 100%;
+    }
+    &:nth-child(even) {
+      /* font-size: 6.25vmin; */
+      font-size: 3.125vmin;
+    }
+    &:nth-child(1) {
+      justify-self: start;
+      translate: -100% 0;
+      scale: -1;
+    }
+    &:nth-child(3) {
+      justify-self: end;
+      translate: 100% 0;
+      /* scale: -1; */
+    }
+  }
+}
+
+.spot-container::after {
+  position: absolute;
+  inset: 0;
+  background-image: url(/subtle-noise-turbulence.png);
+  background-repeat: repeat;
+  background-size: 250px;
+  mix-blend-mode: screen;
+  opacity: .4;
+  content: '';
+}
+.spot::before {
+  position: absolute;
+  inset: 0;
+  background-image: url(/shadow.jpg);
+  background-repeat: repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  /* mix-blend-mode: overlay; */
+  mix-blend-mode: soft-light;
+  opacity: .75;
+  content: '';
+}
+
+/* TODO Add CQs */
+:where(.pile:has(> .star)) {
+  --star-size: 2.75rem;
+  --frame-size: calc(100% - var(--star-size) - var(--spacer));
+  max-inline-size: var(--frame-size);
+  max-block-size: var(--frame-size);
+  aspect-ratio: var(--ratio-square);
+}
+
+.pile > .star {
+  inline-size: var(--star-size);
+  aspect-ratio: 1;
+  translate: var(--tx) var(--ty);
+
+  &:nth-of-type(1) {
+    place-self: start start;
+    --tx: -50%;
+    --ty: -50%;
+  }
+  &:nth-of-type(2) {
+    place-self: start end;
+    --tx: 50%;
+    --ty: -50%;
+  }
+  &:nth-of-type(3) {
+    place-self: end end;
+    --tx: 50%;
+    --ty: 50%;
+  }
+  &:nth-of-type(4) {
+    place-self: end start;
+    --tx: -50%;
+    --ty: 50%;
+  }
+}
+
+.pile > .line {
+  --_size: calc(100% - 2.75rem * 3);
+
+  translate: var(--tx, 0) var(--ty, 0);
+
+  background-color: var(--sw-jogging-path);
+  /* background-color: #273E3E; */
+
+  &:nth-of-type(2n) {
+    block-size: var(--_size);
+  }
+  &:nth-of-type(2n+1) {
+    inline-size: var(--_size);
+  }
+
+  &:nth-of-type(1) { place-self: start center; --ty: -50% }
+  &:nth-of-type(2) { place-self: center start; --tx: -50% }
+  &:nth-of-type(3) { place-self: end center; --ty: 50% }
+  &:nth-of-type(4) { place-self: center end; --tx: 50% }
+}

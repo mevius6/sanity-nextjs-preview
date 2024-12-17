@@ -1,0 +1,93 @@
+@media (max-width: 767px) {
+  :where(details[open]) {
+    margin-inline: calc(var(--size-3) * -1);
+  }
+}
+
+:where(details) {
+  padding-inline: var(--size-3);
+  padding-block: var(--size-2);
+  background: var(--surface-2);
+  border-radius: var(--radius-2);
+}
+
+:where(summary) {
+  background: var(--surface-3);
+  padding: var(--size-2) var(--size-3);
+  margin: calc(var(--size-2) * -1) calc(var(--size-3) * -1);
+  border-radius: var(--radius-2);
+}
+
+summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-block-size: var(--_size);
+}
+
+summary::marker {
+  font-size: 1em;
+  content: '';
+}
+
+summary::after {
+  font-family: var(--font-serif);
+  font-size: 1em;
+  line-height: 1cap;
+  content: ''; /* '▸' */
+  transition: 0.5s ease;
+  transform-origin: 50% 50%;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  aspect-ratio: 1;
+
+  [open] > & {
+    transform: rotate(270deg);
+  }
+}
+
+details {
+  height: fit-content;
+
+  &[open] {
+    height: fit-content;
+  }
+
+  /* Demos: https://codepen.io/collection/waNxgP */
+
+  /* TODO &::details-content {
+      content-visibility: visible;
+
+      transition: all 0.5s ease;
+      height: 150px;
+      overflow: clip;
+    }
+
+    &[open]::details-content {
+      transition: height 0.5s ease;
+      height: calc-size(auto, size + 0.5rem);
+    }
+  } */
+}
+
+/* https://developer.chrome.com/docs/css-ui/animate-to-height-auto/ */
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
+  details {
+    --_size: 2.5rem;
+    transition: height 0.5s ease;
+    height: var(--_size);
+
+    &[open] {
+      /* height: auto; */
+      overflow: clip; /* Clip off contents while animating */
+    }
+  }
+}

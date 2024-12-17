@@ -1,0 +1,41 @@
+{
+  "name": "sanity-nextjs-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbo",
+    "predev": "bun run typegen",
+    "build": "next build",
+    "prebuild": "bun run typegen",
+    "start": "next start",
+    "lint": "next lint",
+    "typegen": "bunx sanity@latest schema extract && bunx sanity@latest typegen generate"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.1",
+    "@sanity/icons": "^3.4.0",
+    "@sanity/image-url": "^1.1.0",
+    "@sanity/locale-ru-kz": "^1.1.12",
+    "@sanity/vision": "^3.65.0",
+    "@tailwindcss/postcss": "^4.0.0-beta.2",
+    "gsap": "^3.12.5",
+    "next": "^15.0.3",
+    "next-sanity": "^9.8.16",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sanity": "^3.65.0",
+    "tailwindcss": "^4.0.0-beta.2",
+    "use-debounce": "^10.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.8",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "15.0.1",
+    "postcss": "^8.4.49",
+    "prettier": "^3.4.1",
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "typescript": "^5.7.2"
+  }
+}

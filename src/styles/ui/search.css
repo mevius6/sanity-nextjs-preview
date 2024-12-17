@@ -1,0 +1,102 @@
+[role=search] {
+  --_fg: var(--foreground);
+  color: var(--_fg, initial);
+}
+
+input {
+  /* by default
+  font: inherit; */
+  font-variation-settings: "opsz" var(--opsz, 14), "wght" var(--wght, 450);
+
+  &::placeholder {
+    color: color-mix(in oklch, var(--_fg) 50%, var(--background) 50%);
+  }
+
+  &[type=search]:is(:hover, :focus-within) + svg path {
+    color: color-mix(in oklch, var(--_fg) 45%, var(--background) 55%);
+  }
+}
+
+/* search */
+:where([role=searh], :has(> input[type=search])) {
+  --_icon-size: 24px; /* 20–28 px */
+  --_space: 1ch; /* 16–32 px */
+
+  max-inline-size: 100%;
+  position: relative;
+
+  --parent-radius: 12px;
+  border-radius: var(--parent-radius);
+  overflow: hidden;
+  box-shadow:
+    0 20px 25px -5px hsl(0 0% 0% / .15),
+    0 8px 10px -6px hsl(0 0% 0% / .25);
+
+  &:is(.glow) {
+    /* --glow-size: ; */
+
+    border: 0;
+    padding: 1px;
+    background-color: var(--border);
+
+    /* when the user is typing */
+    &:has(> input:where(:focus-within):not(:placeholder-shown)) {
+      --glow: 1;
+    }
+
+    > input {
+      /* https://codepen.io/argyleink/pen/mdGMqOJ */
+      --fixed: calc(var(--parent-radius) - 1px);
+      border-radius: var(--fixed);
+      background-color: var(--surface-1);
+
+      &:is(:focus,:focus-visible) {
+        outline: 0;
+      }
+
+      &, & + svg { z-index: 10 }
+    }
+  }
+}
+
+/* w/ icon */
+[type=search] {
+  padding-block: 1ch;
+  --_space: 2ex;
+  padding-inline: calc(
+    var(--_space) + var(--_icon-size) + var(--_space)*.5
+  ) var(--_space);
+
+  inline-size: 100%;
+  field-sizing: content;
+
+  background-image: linear-gradient(
+    var(--surface-2, canvas),
+    var(--surface-3, canvas)
+  );
+  /* background-clip: padding-box, border-box; */
+  border: 1px solid transparent;
+
+  border-radius: 12px;
+  outline: none;
+
+  & + svg {
+    --adjust: 2px; /* 2–8 px */
+    position: absolute;
+    top: 50%;
+    left: var(--_space);
+    block-size: auto;
+    inline-size: var(--_icon-size);
+    aspect-ratio: 1;
+    padding: var(--adjust);
+    translate: 0 -50%;
+    overflow: visible;
+    color: color-mix(in oklch, var(--_fg) 30%, var(--background) 70%);
+    transition: color ease-in-out 150ms;
+
+    & path {
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+  }
+}

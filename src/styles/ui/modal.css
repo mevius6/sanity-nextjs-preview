@@ -1,0 +1,82 @@
+/* REFS Custom modal w/ new [popover] and [popovertarget] attrs
+    - https://codepen.io/web-dot-dev/pen/jOeKzpb
+    - https://hidde.blog/popover-accessibility/
+    - https://hidde.blog/popover-semantics/
+    - https://mdn.io/popover
+    - https://mdn.io/dialog
+    - https://nerdy.dev/using-starting-style-and-transition-behavior-for-enter-and-exit-stage-effects#dialog-and-popover
+    - https://html.spec.whatwg.org/dev/popover.html#the-popover-attribute
+
+    Resources:
+    - Anchor
+      Introducing the CSS anchor positioning API → https://goo.gle/3SWrvM5
+      MDN anchor() → https://goo.gle/3TjacoL
+      Una's anchor tool → https://goo.gle/3yDYDSd
+
+    - Popover
+      Popover API lands in Baseline → https://goo.gle/3Vo2dIs
+      MDN popover → https://mzl.la/4dMWiUd
+
+    - Demos
+      Over-Easy → https://goo.gle/4erTlbJ
+      Over-Easy Hover Popover → https://goo.gle/4e9AuSl
+      Over-Easy Toggle Tip → https://goo.gle/3Xaqd1w
+*/
+
+/* UA stylesheet
+   dialog:modal { overlay: auto !important; } */
+/* https://drafts.csswg.org/selectors/#modal-state */
+
+html:has(.modal[open]) {
+  body {
+    overflow: hidden;
+  }
+}
+
+.modal {
+  --icon-size: 2ch;
+  --size-limit: 8;
+
+  border-radius: 1.5ch;
+  max-block-size: calc(var(--size-limit, 5) * 10dvb);
+  max-inline-size: calc(var(--size-limit, 5) * 10dvi);
+
+  background: light-dark(var(--surface-3), var(--surface-1));
+  padding: var(--icon-size);
+
+  @media (width >= 1024px) {
+    --cols: 2;
+  }
+
+  & :where(h1,h2) { line-height: 1.3cap }
+
+  & > article {
+    display: grid;
+    place-content: center;
+    grid-template-columns: repeat(var(--cols, 1), 1fr);
+    min-inline-size: calc(100% - 4ch);
+    max-inline-size: unset; /* --max-line-length: 66ch */
+    padding: var(--icon-size);
+    /* gap: 2ch; */
+  }
+}
+
+.close-button {
+  --_space: .5ex;
+  position: absolute;
+  inset-block-start: calc(var(--icon-size)/2 - var(--_space));
+  inset-inline-end: calc(var(--icon-size)/2 - var(--_space));
+  block-size: var(--icon-size);
+  inline-size: var(--icon-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  cursor: pointer;
+  padding: var(--_space);
+  background-color: transparent;
+  border: none;
+  font-size: 24px; /* Adjust font size as needed */
+
+  /* &:hover {…} */
+}

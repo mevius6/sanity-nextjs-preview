@@ -1,0 +1,107 @@
+.bg-gradient {
+  --gradient:
+    radial-gradient(
+      circle,
+      var(--trn) 0%,
+      33.333%,
+      var(--accent-shade) 100%
+    );
+
+  background-image: var(--gradient);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100vh;
+}
+
+.strips {
+  background:
+    linear-gradient(90deg,
+      #5461c8 12.5%,
+      #c724b1 0 25%,
+      #e4002b 0 37.5%,
+      #ff6900 0 50%,
+      #f6be00 0 62.5%,
+      #97d700 0 75%,
+      #00ab84 0 87.5%,
+      #00a3e0 0)
+}
+
+.hashes {
+  background:
+    repeating-linear-gradient(-45deg,
+      #ccc 0 2px,
+      transparent 0 9px)
+}
+
+/* Isolation creates a new stacking context for mix-blend-mode.
+   See: https://developer.mozilla.org/en-US/docs/Web/CSS/isolation */
+.isolate {
+  isolation: isolate;
+  position: absolute;
+  inset-block-start: 0;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+/* https://grainy-gradients.vercel.app/ */
+.grainy-gradient {
+  inline-size: 100%;
+  block-size: 100%;
+  background: radial-gradient(
+    ellipse at 70%,
+    var(--c1, #333),
+    var(--c2, #0000)
+  ), url("https://grainy-gradients.vercel.app/noise.svg"); /* 500px */
+  filter: contrast(150%) brightness(700%);
+}
+
+.border-gradient {
+  --n: 2;
+  --hint: calc(100% - 100% / (var(--n) + 1) * var(--n));
+
+  border-color: var(--border-color, var(--background));
+  border-style: solid;
+  border-width: var(--_size, .125cqi);
+
+  border-image-source: var(--border-imgsrc,
+    linear-gradient(
+      45deg,
+      var(--c1, transparent),
+      var(--hint, 33.333%),
+      var(--c2, currentcolor)
+    )
+  );
+  border-image-slice: 1;
+  border-image-width: 1;
+
+  &:where(.--voygb) {
+    border-image-source: var(--lin-gradient-voygb);
+  }
+}
+
+.rounded-border-gradient {
+  --surface: var(--background);
+  --gradient: linear-gradient(to bottom right,#1f005c,#5b0060,#870160,#ac255e,#ca485c,#e16b5c,#f39060,#ffb56b);
+
+  background:
+    linear-gradient(
+      var(--surface),
+      var(--surface)) padding-box,
+      var(--gradient) border-box;
+
+  border: solid var(--line-medium) transparent;
+  border-radius: var(--radius-2);
+}
+
+.text-gradient {
+  /* color: transparent; */
+  background: linear-gradient(
+    to right,
+    hsl(98 100% 62%),
+    hsl(204 100% 59%)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: var(--trn, transparent);
+
+  /* box-decoration-break: clone; */
+}

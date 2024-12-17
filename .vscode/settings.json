@@ -1,0 +1,252 @@
+{
+  "npm.packageManager": "bun",
+  "gitlens.mode.active": "zen",
+
+  // MARK: - Theming
+
+  // "workbench.preferredDarkColorTheme": "GitHub Dark Default",
+  "workbench.preferredDarkColorTheme": "Vitesse Black",
+  // "workbench.preferredDarkColorTheme": "poimandres",
+  // "workbench.preferredDarkColorTheme": "TheCodeTheme Dark",
+  // "workbench.preferredDarkColorTheme": "CodeSandbox",
+
+  // "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+  "catppuccin.accentColor": "teal",
+  "catppuccin.colorOverrides": {
+    "mocha": {
+      "base": "#000000",
+      "mantle": "#010101",
+      "crust": "#020202",
+    },
+  },
+  "catppuccin.customUIColors": {
+    "mocha": {
+      "statusBar.foreground": "accent",
+    },
+  },
+  "catppuccin.bracketMode": "neovim",
+
+  // "workbench.productIconTheme": "emoji-product-icons-fun",
+  "workbench.iconTheme": "quill-icons-minimal",
+  // "workbench.iconTheme": "catppuccin-mocha",
+  "catppuccin-icons.hidesExplorerArrows": false,
+  "catppuccin-icons.associations.folders": {
+    "api": "folder_api",
+    "lib": "folder_utils",
+    "ui": "folder_components",
+    "config": "folder_config",
+    "datastore": "folder_database",
+    "sanity": "folder_content",
+    "studio": "folder_queue",
+    "schemas": "folder_types",
+    "schemaTypes": "folder_types",
+    "js": "folder_scripts"
+  },
+
+  "zenMode.hideActivityBar": false,
+  "zenMode.hideLineNumbers": false,
+  "todo-tree.general.showActivityBarBadge": true,
+
+  // "editor.renderWhitespace": "none",
+  // "editor.guides.bracketPairs": "active",
+  // "editor.guides.bracketPairsHorizontal": false,
+  // "editor.guides.highlightActiveBracketPair": true,
+
+  // https://input.djr.com/preview/
+  // "editor.fontFamily": "Input Mono,Menlo,Monaco,monospace",
+  // "editor.fontFamily": "Input,monospace", // customized typeface
+  "editor.fontSize": 14,
+  "editor.lineHeight": 1.4,
+  "editor.fontWeight": "400", // ~ 300
+  // "editor.fontLigatures": "", // fall back to default settings
+  "editor.letterSpacing": 0, // 0.08–0.48
+  "editor.lineNumbers": "interval",
+  "workbench.fontAliasing": "antialiased",
+
+  "workbench.editor.tabActionLocation": "left",
+  "workbench.editor.limit.enabled": true,
+  "workbench.editor.limit.perEditorGroup": true,
+  "workbench.editor.limit.value": 7, // ~ 5 tabs in work and 1–2 pinned
+
+  // MARK: - TODOs 🌳
+
+  // → https://github.com/Gruntfuggly/todo-tree#readme
+  // → https://github.com/Gruntfuggly/todo-tree/wiki/Configuration-Examples
+  "todo-tree.general.statusBar": "top three",
+  "todo-tree.general.statusBarClickBehaviour": "toggle highlights",
+  "todo-tree.general.showIconsInsteadOfTagsInStatusBar": true,
+  "todo-tree.general.debug": true,
+  "todo-tree.regex.enableMultiLine": true,
+  "todo-tree.regex.regexCaseSensitive": true,
+  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)",
+  // MARK: └── Defining 🏷️
+  "todo-tree.general.tagGroups": { // work as aliases
+    "FIX": ["FIXME", "FIXIT"],
+    "INFO": ["NOTE"]
+    // "REF": ["SEE", "GOTO"]
+  },
+  "todo-tree.general.tags": [
+    "DEMO",
+    "BUG",
+    "HACK",
+    "FIXME", "FIXIT", "FIX",
+    "TODO",
+    "REFS",
+    "INFO", "NOTE",
+    "XXX",
+    "[ ]",
+    "[x]",
+    "CODE"
+    // "MARK"
+  ],
+  // MARK: └── Highlighting 🌈
+  // → https://github.com/Gruntfuggly/todo-tree#highlighting
+  "todo-tree.highlights.enabled": true,
+  "todo-tree.highlights.defaultHighlight": {
+    // "type": "tag-and-comment",
+    "icon": "$(plain)",
+    "iconColour": "#0FB", // Aquamarine
+    "foreground": "#0FC",
+    "background": "#696969", // DimGray
+    "opacity": 25,
+    "rulerLane": "right",
+    "fontWeight": "500",
+    "fontStyle": "italic",
+    "borderRadius": ".25ch",
+    // "gutterIcon": true
+  },
+  /*
+    DEMO Using the brightest colors in the X11, VGA and W3C schemas
+      → https://en.wikipedia.org/wiki/X11_color_names#Color_variations
+      → https://en.wikipedia.org/wiki/Web_colors#HTML_color_names
+      → https://drafts.csswg.org/css-color-4/#named-color
+      → https://drafts.csswg.org/css-color-5/#device-cmyk
+  */
+  "todo-tree.highlights.useColourScheme": true, // override
+
+  // MARK: └── Rendering 📸
+  /* order: Brightness ↓ (desc)
+    BUG 'rebeccapurple' does not appear as a tag background
+    HACK
+    FIXME https://lists.w3.org/Archives/Public/www-style/2014Jun/0312.html
+    TODO Add a link to the Day-Glo Designers Guide from the mid-’60s
+    REFS RegEx → https://github.com/BurntSushi/ripgrep
+    INFO PANTONE® Neon colors range 801–807 C + Nylon Brights TN
+    XXX [off the queue]
+    [ ] Subtags
+    [x] Abstract
+  */
+
+  // CODE┆‹#›
+  // MARK: └── Preparing 🎨
+  // NOTE Several groups of colors share the same lightness or brightness and saturation. These nuances differ only by hue.
+  /* Nuances with different hue
+    100%/50%
+    0° Red,
+    16° Orange Red,
+    33° Dark Orange,
+    39° Orange,
+    51° Gold,
+    60° Yellow,
+    90° Chartreuse,
+    120° (Lime) Green,
+    150° Spring Green,
+    180° Aqua / Cyan,
+    195° Deep Sky Blue,
+    240° Blue,
+    300° Fuchsia / Magenta
+  */
+  "todo-tree.highlights.backgroundColourScheme": [
+    "#1e90ff",      // DodgerBlue
+    "#ff1493",      // DeepPink | Red F00 | OrangeRed FF4500
+    "#ffa500",      // DarkOrange | Orange | Gold FFD700
+    "#ff0", "#ff0", // Yellow FF0
+    "#edff00",      // Chartreuse 7FFF00 | 3FFF00 (Harlequin)
+    "#0f0",         // (Lime) Green 0F0 | SpringGreen 00FF7F
+    "#0ff",         // Cyan/Aqua
+    "#00bfff", "#", // DeepSkyBlue
+    "#00f",         // Blue
+    "#a020f0",      // Purple A020F0
+    "#f0f",         // Magenta/Fuchsia F0F
+    "#696969"       // DimGray as an default fallback
+  ],
+  "todo-tree.highlights.foregroundColourScheme": [
+    "chartreuse",
+    "DeepPink",
+    "OrangeRed",
+    "✓", "✓", "yellow",
+    "#39ff14", // Neon green
+    "whiteSmoke",
+    "whiteSmoke", "✓",
+    "Cyan",
+    "#f09",
+    "Magenta", // "#ffdead",
+    "#80ff00"
+  ],
+  // → https://primer.style/foundations/icons/
+  // → https://microsoft.github.io/vscode-codicons/dist/codicon.html
+  "todo-tree.highlights.customHighlight": {
+    "BUG": {
+      "icon": "bug", // 
+      "iconColour": "#FE0A83", // EZ-11 Aurora Pink®
+      "gutterIcon": true
+    },
+    "HACK": {
+      "icon": "tools",
+      "iconColour": "#F96F27", // EZ-15 Blaze Orange
+      "gutterIcon": true
+    },
+    "FIX": {
+      "icon": "flame",
+      "iconColour": "#FFE02E", // EZ-17 Saturn Yellow®
+      "gutterIcon": true
+    },
+    "TODO": {
+      "icon": "check", // or "checklist"
+      "gutterIcon": true
+    },
+    "XXX": {
+      "icon": "x",
+      "fontStyle": "normal"
+    },
+    "[ ]": {
+      "icon": "issue-draft",
+      "fontStyle": "normal"
+    },
+    "[x]": {
+      "icon": "issue-closed",
+      "fontStyle": "normal"
+    },
+    "REFS": { // References
+      "icon": "link" // or "arrow-up-right"
+    },
+    "INFO": { // Informative refs on specs, docs, etc.
+      "icon": "info"
+    },
+    "NOTE": { // Notes, hints, etc.
+      "icon": "note"
+    },
+    "CODE": { // Demos, code frags, etc.
+      "icon": "code",
+      "type": "text-and-comment"
+    },
+    "DEMO": { // Intent, feature, presentation, etc.
+      "icon": "$(plain)",
+      "type": "whole-line"
+    }
+  },
+
+  // MARK: - Extensions 🔌
+
+  "sanity.useCodelens": true,
+  "sanity.openJSONFile": true,
+
+  "iconify.annotations": true,
+  "iconify.inplace": true,
+  "iconify.color": "auto",
+
+  "arrayIndexInlay.enabled": true,
+
+  // https://github.com/gitkraken/vscode-gitlens/discussions/3721
+  "gitlens.home.preview.enabled": true
+}

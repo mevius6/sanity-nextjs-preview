@@ -1,0 +1,73 @@
+/* REFS Select styling
+    - https://moderncss.dev/custom-select-styles-with-pure-css/
+    - https://web-standards.ru/articles/native-and-custom-select/ */
+
+/* Customization:
+    - https://codepen.io/collection/BNZjPe
+    - https://codepen.io/collection/QWeLGB
+    - https://codepen.io/collection/NqeQxp */
+
+/* enter custom mode */
+/* select,
+::picker(select) {
+  appearance: base-select;
+} */
+
+/* style the button */
+/* ::select-fallback-button {…} */
+
+/* style the picker dropdown */
+/* ::picker(select) {…} */
+
+/* style the options */
+/* option {
+  font-family: monospace;
+
+  &:checked {
+    background: powderblue;
+  }
+
+  &:is(:hover, :focus-visible) {
+    background-color: pink;
+  }
+
+  &::before {
+    content: '🫵🏻';
+    font-size: 80%;
+    margin: 0.5rem;
+  }
+} */
+/* etc. */
+
+:where(footer) {
+  & .group:has(> label + select) {
+    padding-inline: 1.5ex;
+    padding-inline: 0.5rlh;
+    padding-block: 0.5ch;
+    border-radius: calc(10cqi/4);
+    border-color: var(--border);
+  }
+
+  & :where(label, select) {
+    transition: inherit;
+    font-size: 0.875rem;
+    font-variation-settings: "opsz" 16, "wght" 400, "ital" 0;
+
+    color: color-mix(in oklab,
+      var(--foreground) 35%,
+      var(--background) 50%
+    );
+
+    &:where(:hover, :focus) {
+      color: color-mix(in oklab,
+        var(--foreground) 50%,
+        var(--accent) 50%
+      );
+    }
+  }
+
+  select:has(> [value=dark]) {
+    border: 0;
+    background: initial;
+  }
+}

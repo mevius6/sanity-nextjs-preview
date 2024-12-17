@@ -1,0 +1,110 @@
+/* REFS Tabs component styling
+  - https://codepen.io/jh3y/pen/gONPLKJ
+  - https://codepen.io/argyleink/pen/qBwZGxy
+  - https://codepen.io/argyleink/pen/LYvWzdN
+  - https://codepen.io/jakob-e/pen/KKvjaBq
+  - https://codepen.io/geoffgraham/pen/wvbPKpQ
+  - https://codepen.io/una/pen/KgRzRE
+  - https://codepen.io/oliviale/details/bGWXEWK
+  - https://codepen.io/heydon/pen/veeaEa
+  - https://codepen.io/iamvdo/pen/pbzZOz
+*/
+
+.controls {
+  position: relative;
+  max-inline-size: fit-content;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--spacer);
+  border-radius: 100px;
+  border: 4px solid transparent;
+  color: var(--text-2);
+  background:
+    radial-gradient(
+      circle at 0 50%, var(--surface-2), transparent
+    ) border-box, var(--surface-3);
+}
+
+.controls::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 100px;
+  pointer-events: none;
+  box-shadow:
+    0 1px inset hsl(0 0% 100% / 0.5),
+    0 -1px inset hsl(0 0% 0% / 0.5);
+}
+
+:where(.tabs, .tabs__track) {
+  display: grid;
+  grid-template-columns: repeat(var(--total, 1), 1fr);
+
+  :is([data-total="2"]) & { --total: 2 }
+  :is([data-total="3"]) & { --total: 3 }
+  :is([data-total="4"]) & { --total: 4 }
+}
+
+.tabs {
+  position: relative;
+  cursor: pointer;
+
+  input:focus-visible ~ .tabs__indicator {
+    outline: 2px solid hsl(239 100% 95%);
+    outline-offset: 2px;
+  }
+
+  label {
+    display: grid;
+    place-content: center;
+    text-align: center;
+    line-height: 1.5;
+    padding-block: .75ch;
+    padding-inline: calc(1lh / 2);
+    border-radius: 100px;
+    transition: background 0.25s;
+
+    min-inline-size: calc(100% - var(--spacer-2x) * 2);
+  }
+
+  label:hover {
+    background: color-mix(in oklch,
+      var(--surface-4) 50%,
+      transparent 50%)
+    ;
+  }
+
+  input:nth-of-type(2):checked ~ .tabs__indicator {
+    --_n: 2;
+    translate: 100% 0;
+  }
+  input:nth-of-type(2):checked ~ .tabs__indicator .tabs__track {
+    translate: calc(100% / var(--total) * -1) 0;
+  }
+
+  input:nth-of-type(3):checked ~ .tabs__indicator {
+    --_n: 3;
+    translate: 200% 0;
+  }
+  input:nth-of-type(3):checked ~ .tabs__indicator .tabs__track {
+    translate: calc(200% / var(--total) * -1) 0;
+  }
+}
+
+.tabs__indicator {
+  position: absolute;
+  width: calc(100% / var(--total));
+  height: 100%;
+  background: var(--background, var(--surface-1));
+  border-radius: 100px;
+  overflow: hidden;
+  transition: translate 0.25s;
+  pointer-events: none;
+}
+
+.tabs__track {
+  width: calc(var(--total) * 100%);
+  color: var(--text-1);
+  transition: translate 0.25s;
+}

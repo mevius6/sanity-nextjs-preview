@@ -1,0 +1,147 @@
+/* https://drafts.csswg.org/css-ui/#cursor */
+@media (hover) and (pointer: fine) {
+  body:has(> .custom-cursor) * { cursor: var(--cursor) !important }
+}
+
+@layer custom-cursor {
+  .custom-cursor {
+    --tx: calc(var(--x, -100) * 1px);
+    --ty: calc(var(--y, -100) * 1px);
+
+    position: fixed;
+    inset-block: var(--ty); inset-inline: var(--tx);
+    z-index: 1010;
+    display: none;
+    inline-size: var(--_size, 0);
+    block-size: var(--_size, 0);
+    aspect-ratio: 1;
+    pointer-events: none;
+    cursor: none;
+
+    scale: var(--_scale, 0);
+    translate: -50% -50%;
+
+    /* https://drafts.csswg.org/css-transforms-2/#matrix-interpolation
+       transform: matrix(0,0,0,0,0,0); */
+  }
+
+  @media (hover) and (pointer: fine) and
+         (scripting: enabled) and
+         (prefers-reduced-motion: no-preference) {
+    .custom-cursor {
+      --_scale: 1;
+      --_size: 24px;
+      display: block;
+      background-color: var(--accent-a50);
+      border-radius: 50%;
+
+      &::after {
+        position: absolute;
+        inset-block-start: 50%;
+        inset-inline-start: 50%;
+        display: block;
+        font-size: xxx-large;
+        content: var(--icon);
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+}
+
+:root:has([href="."]:hover) .custom-cursor {
+  /* background: transparent; */
+  --_scale: .5;
+}
+
+:root:has([href*="404"]:hover) .custom-cursor {
+  --icon: "💀";
+  background: transparent;
+  animation: var(--animation-ping);
+}
+
+:root:has([data-icon="🚧"]:hover) .custom-cursor {
+  --icon: "🧪";
+  background: transparent;
+  animation: var(--animation-float);
+}
+
+@layer custom-cursor.preview {
+  :root:has([class*="previews"]:hover) .preview {
+    --intent: 1;
+  }
+
+  [class*="previews"] li {
+    transition: opacity .2s ease;
+  }
+
+  .preview {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    cursor: none;
+    background: hsl(
+      0 calc(var(--_active) * 100%) calc(100% - (var(--_active) * 50%)) / 1
+    );
+    border-radius: 50%;
+    opacity: var(--intent, 0);
+    transition: opacity .2s, clip-path .2s;
+    translate: -50% 0;
+  }
+
+  [class*="previews"] li:hover {
+    opacity: 1;
+  }
+
+  [class*="previews"] li:has(~ li:hover),
+  [class*="previews"] li:hover ~ li {
+    opacity: 0.2;
+  }
+
+  :root:has(ol li:hover) .preview {
+    --_active: 1;
+  }
+
+  :where(
+    :root:has(ol li:nth-of-type(1):hover) .preview__img img:nth-of-type(1),
+    :root:has(ol li:nth-of-type(2):hover) .preview__img img:nth-of-type(2),
+    :root:has(ol li:nth-of-type(3):hover) .preview__img img:nth-of-type(3)
+  ) {
+    --show: 1;
+  }
+
+  :root:has(ol li:hover) .preview__img {
+    clip-path: inset(0 0 0 0 round 0);
+  }
+
+  .preview__img {
+    --_size: calc(100cqi / 8);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: var(--_size);
+    height: var(--_size);
+    background: transparent;
+    border: 1px solid transparent;
+    transition: translate .2s, clip-path .2s;
+    translate: -50% calc(var(--_active, 0) * -2rem);
+    clip-path: inset(
+      calc(100% - 12px)
+      calc(50% - 6px) 0
+      calc(50% - 6px) round var(--_size)
+    );
+  }
+
+  .preview__img img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: var(--show, 0);
+    object-fit: cover;
+    transition: opacity .2s ease;
+  }
+}

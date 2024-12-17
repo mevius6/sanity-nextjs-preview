@@ -1,0 +1,64 @@
+/* REFS CSS filtering techniques 🚰
+  - https://web.dev/articles/building/a-multi-select-component
+    https://github.com/argyleink/gui-challenges/tree/main/multi-select
+  - https://github.com/metafizzy/isotope/tree/master
+    https://gui-challenges.web.app/multi-select/dist/
+  - https://ryanmulligan.dev/blog/we-can-has-it-all/ */
+
+body {
+  &:has([name="artist" i][value="natalia"]:checked) {
+    & .card:not(:has([alt*="Наталья" i])) { display: none; }
+    & .card:has([alt*="Наталья" i]) [href^="/artists"]:has([itemprop=name]) { display: none; }
+  }
+
+  &:has([name="artist" i][value="vladimir"]:checked) {
+    & .card:not(:has([alt*="Владимир" i])) { display: none; }
+    & .card:has([alt*="Владимир" i]) [href^="/artists"]:has([itemprop=name]) { display: none; }
+  }
+
+  &:has([name="Сюжет" i][value="Анимализм"]:checked) {
+    & .card:not(:has([alt*="Анимализм" i])) { display: none; }
+  }
+
+  &:has([name="Сюжет" i][value="Пейзаж"]:checked) {
+    & .card:not(:has([alt*="Пейзаж" i])) { display: none; }
+  }
+
+  &:has([name="Сюжет" i][value="Портрет"]:checked) {
+    & .card:not(:has([alt*="Портрет" i])) { display: none; }
+  }
+
+  &:has([name="Сюжет" i][value="Натюрморт"]:checked) {
+    & .card:not(:has([alt*="Натюрморт" i])) { display: none; }
+  }
+
+  &:has([name="Техника" i][value="масло"]:checked) {
+    & .card:not(:has([alt*="Масло" i])) { display: none; }
+  }
+
+  &:has([name="Техника" i][value="акварель"]:checked) {
+    & .card:not(:has([alt*="Акварель" i])) { display: none; }
+  }
+
+  &:has([name="Техника" i][value="пастель"]:checked) {
+    & .card:not(:has([alt*="Пастель" i])) { display: none; }
+  }
+
+  &:has([name="Техника" i][value="карандаш"]:checked) {
+    & .card:not(:has([alt*="Карандаш" i])) { display: none; }
+  }
+
+  &:has([name="Материал" i][value="холст" i]:checked) {
+    & .card:not(:has([alt*="холст" i])) { display: none; }
+  }
+
+  &:has([name="Материал" i][value="бумага" i]:checked) {
+    & .card:not(:has([alt*="Бумага" i])) { display: none; }
+  }
+
+  &:has([name="Материал" i][value="дерево" i]:checked) {
+    & .card:not(:has([alt*="дерево" i])) { display: none; }
+  }
+}
+
+/* @supports not (selector(:has(+ *))) {…} */

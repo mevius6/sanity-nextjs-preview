@@ -1,0 +1,90 @@
+/* REFS Custom input range (slider)
+  - https://blog.kizu.dev/input-range-thumb/
+  - https://codepen.io/argyleink/pen/vYbpNVm
+  - https://web.dev/articles/building/a-settings-component#custom_range
+  - https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/
+*/
+
+/* min/max value hints */
+/* [type=range] ~ div {
+  > :last-child {
+    color: color-mix(in oklab, chartreuse 50%, transparent 50%);
+  }
+  > :first-child {
+    color: color-mix(in oklab, crimson 50%, transparent 50%);
+  }
+} */
+
+[type=range] {
+  --slider-thumb-hsl: 20deg 100% 50%; /* #f50 */
+  --slider-thumb-hsl: 210deg 8.8% 31.4%;
+  --slider-thumb-size: 1rem; /* 16px */
+
+  min-inline-size: 20ch;
+  max-inline-size: 100%;
+  margin-inline: 0 auto;
+
+  /* custom slider styling */
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  border-width: 0;
+  border-radius: 16px;
+  height: 8px;
+  background: #ccc;
+
+  /* accent-color: var(--slider-thumb-accent, initial); */
+
+  /* thumb */
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: var(--slider-thumb-size);
+    width: var(--slider-thumb-size);
+    background-color: hsl(var(--slider-thumb-hsl));
+    border-radius: 50%;
+    border: none;
+    transition: .2s ease-in-out;
+  }
+
+  &::-moz-range-thumb {
+    height: var(--slider-thumb-size);
+    width: var(--slider-thumb-size);
+    background-color: hsl(var(--slider-thumb-hsl));
+    border-radius: 50%;
+    border: none;
+    transition: .2s ease-in-out;
+  }
+
+  /* state indicator */
+  &::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 10px hsl(var(--slider-thumb-hsl) / .1)
+  }
+  &:active::-webkit-slider-thumb {
+    box-shadow: 0 0 0 13px hsl(var(--slider-thumb-hsl) / .2)
+  }
+  &:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 13px hsl(var(--slider-thumb-hsl) / .2)
+  }
+
+  &::-moz-range-thumb:hover {
+    box-shadow: 0 0 0 10px hsl(var(--slider-thumb-hsl) / .1)
+  }
+  &:active::-moz-range-thumb {
+    box-shadow: 0 0 0 13px hsl(var(--slider-thumb-hsl) / .2)
+  }
+  &:focus::-moz-range-thumb {
+    box-shadow: 0 0 0 13px hsl(var(--slider-thumb-hsl) / .2)
+  }
+}
+
+/* Specs
+  - https://drafts.csswg.org/selectors/#range-pseudos
+  - https://html.spec.whatwg.org/multipage/semantics-other.html#selector-out-of-range
+*/
+
+body:has([type=range]:in-range) {
+  & .card:not(:has([alt*="Наталья" i])) { display: none; }
+}

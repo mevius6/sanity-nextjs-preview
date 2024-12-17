@@ -1,0 +1,84 @@
+@layer intent, custom;
+
+/**
+ * MARK: - Card
+ */
+
+/* TODO CSS @scope at-rule
+  https://www.bram.us/2023/08/22/a-quick-introduction-to-css-scope/
+  https://developer.chrome.com/docs/css-ui/at-scope */
+
+@layer intent {
+  [class*=card]:is(.group) {
+    @apply relative grid w-full content-center place-self-start overflow-hidden rounded-2xl border shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-xl;
+
+    /* --card: light-dark(hsl(60 5% 90%), hsl(240 4% 10%)); */
+    /* --card-hover: light-dark(hsl(60 5% 90% / .1), hsl(240 4% 10% / .1)); */
+    /* --card-foreground: light-dark(hsl(240 4% 10%), hsl(60 5% 90%)); */
+
+    background-color: var(--card, var(--surface-1));
+    color: var(--card-foreground, var(--foreground));
+    border-color: var(--border);
+
+    will-change: auto;
+
+    a {
+      --link: var(--card-foreground);
+      --link-visited: var(--card-foreground)
+    }
+
+    &:is(:hover, :focus) {
+      /* background-color: var(--card-hover); */
+      border-color: var(--border-hover);
+    }
+
+    picture {
+      @apply brightness-75 contrast-[1.15] will-change-auto group-hover:brightness-100 group-hover:contrast-125;
+    }
+
+    &:is(.glow) {
+      @apply border-0 p-px hover:before:opacity-100;
+
+      background-color: var(--border);
+
+      > div {
+        /* https://codepen.io/argyleink/pen/mdGMqOJ */
+        --fixed: calc(var(--parent-radius, 1rem) - 1px);
+        border-radius: var(--fixed);
+        background-color: var(--surface-1);
+      }
+    }
+  }
+}
+
+.card > article {
+  max-inline-size: unset;
+  pointer-events: none;
+  z-index: 1;
+
+  & h3 { --px-size: 32 }
+
+  > header {
+    inline-size: 100%;
+
+    > a[href*=artworks] {
+      pointer-events: all;
+
+      &::before {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: block;
+        content: "";
+      }
+    }
+  }
+
+  > footer a:has(> [itemprop=artist]) {
+    pointer-events: all;
+    z-index: 2;
+
+    min-inline-size: 100%;
+    padding-block: 1px;
+  }
+}
