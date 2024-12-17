@@ -86,10 +86,8 @@
 
   .spot hgroup {
     margin: auto;
-    /* inline-size: calc(100cqi - 2.75rem); */
+    margin-block: 3.5rem;
     block-size: calc(100lvh - var(--star-size) * 4);
-    /* align-items: stretch; */
-    grid-template-rows: auto min-content;
 
     h1 {
       place-self: start center;

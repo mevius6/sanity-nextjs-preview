@@ -452,7 +452,9 @@
       &:has(~ .intro) {
         /* max-inline-size: 20ch; */
         place-self: center;
-        /* padding-block: calc(var(--rem-tap-size) / 2); */
+        /* max-inline-size: 10ch; */
+        max-inline-size: min-content;
+        margin: 1ch;
       }
 
       .outro & {

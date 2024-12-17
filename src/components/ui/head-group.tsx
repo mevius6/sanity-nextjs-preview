@@ -8,7 +8,7 @@ export default function LocalHead({
   subtitle: React.ReactNode | string;
 }>) {
   return (
-    <hgroup className="intro init-reveal my-[3.5rem] grid text-center">
+    <hgroup className="intro flex flex-col items-center justify-between text-center init-reveal">
       <h1>
         {title?.toString()
           .split('\x20').map((v: string, i: number) =>
