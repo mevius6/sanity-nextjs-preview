@@ -385,25 +385,24 @@
         --_bg: var(--sw-night-watch) / .75;
 
         display: inline-flex;
-        padding: var(--denser);
         background-color: hsl(var(--_bg));
         /* backdrop-filter: blur(10px); */
         color: currentcolor;
+        padding: var(--spacer);
 
         svg {
-          width: 1rem;
-          height: 1rem;
+          width: 1.5rem;
+          height: 1.5rem;
         }
 
-        @media (width <= 440px) {
-          padding: var(--spacer);
-          svg {
-            width: 1.5rem;
-            height: 1.5rem;
-          }
-        }
         @media (width >= 1024px) {
-          padding: 1ex;
+          padding: var(--denser);
+          /* padding: 1ex; */
+
+          svg {
+            width: 1rem;
+            height: 1rem;
+          }
         }
       }
     }
@@ -766,6 +765,8 @@
 
     > body {
       min-block-size: 100%;
+      overflow-x: clip;
+      overflow-inline: clip;
     }
   }
 
